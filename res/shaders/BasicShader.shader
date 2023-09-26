@@ -18,5 +18,5 @@ uniform vec4 colorTint;
 
 void main()
 {
-   color = vec4(colorTint.x,colorTint.y,colorTint.z,colorTint.w);
+   color = vec4(colorTint.x,colorTint.y,colorTint.z,colorTint.w) + vec4(0.0f,1.0f,0.0f,0.0f);
 };

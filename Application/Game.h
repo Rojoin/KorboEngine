@@ -2,15 +2,19 @@
 
 #include "..\src\Base Game\Engine.h"
 #include "Shape/Triangle.h"
-#include "Shape/Square.h"
 
 class Game final : public Korbo::Engine
 {
 private:
-    Shape* aux;
-    Shape* aux2;
-    int windowWidth = 800;
-    int windowHeight = 400;
+    Shape* redTriangle;
+    
+    Vec3 trianglePos;
+    Vec3 triangleScale;
+    Vec4 triangleColor;
+    
+    int windowWidth;
+    int windowHeight;
+
 public:
     Game(int windowWidth,int windowHeight);
     ~Game() override;

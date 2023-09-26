@@ -1,5 +1,9 @@
 ﻿#include "Game.h"
 
+// Crear un triangulo Rojo
+// Mover El Triangulo en Diagonal
+// Rotar El Triangulo En sentido AntiHoriario
+
 Game::Game(int windowWidth,int windowHeight) : Engine(windowWidth,windowHeight)
 {
     this->windowWidth = windowWidth;
@@ -14,24 +18,35 @@ Game::~Game()
 
 void Game::init() 
 {
-    aux = new Square(getRenderer(),{1,0,1,1},{windowWidth/2.0f,windowHeight/2.0f,0.0f},{20,100,0});
-    aux2 = new Triangle(getRenderer(),{1,0,0,1,},{windowWidth/2.0f,windowHeight/2.0f,0.0f},{20,100,0});
-    //aux->SetPosition({windowWidth/2.0f,windowHeight/2.0f,0.0f});
-    aux2->SetPosition({windowWidth/2.0f,windowHeight/2.0f,0.0f});
-    aux->SetRotationZ(10);
- 
+
+    
+    triangleScale.x = 100.0f;
+    triangleScale.y = 100.0f;
+    triangleScale.z = 100.0f;
+
+    trianglePos.x = 0.0f;
+    trianglePos.y = 0.0f;
+    trianglePos.z = 0.0f;
+
+    triangleColor.x = 1.0f;
+    triangleColor.y = 0.0f;
+    triangleColor.z = 0.0f;
+    triangleColor.w = 1.0f;
+
+    redTriangle = new Triangle(getRenderer(),triangleColor,trianglePos,triangleScale);
 }
 
-void Game::update() 
+void Game::update()
 {
-    aux->SetRotationZ(10);
-
-    aux->Draw();
-    aux2->Draw();
+    trianglePos.x = trianglePos.x + 0.05f;
+    trianglePos.y = trianglePos.y + 0.05f;
+    
+    redTriangle->Draw();
+    redTriangle->SetPosition(trianglePos);
+    redTriangle->SetRotationZ(5.0f);
 }
 
 void Game::exit() 
 {
-    delete aux;
-    delete aux2;
+    delete redTriangle;
 }

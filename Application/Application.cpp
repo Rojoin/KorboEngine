@@ -5,7 +5,7 @@
 int main()
 {
 	Game *game;
-	game = new Game(640,480);
+	game = new Game(800,800);
 	game->gameLoop();
 	delete game;
 }
