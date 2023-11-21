@@ -16,23 +16,27 @@ Game::~Game()
 
 void Game::init()
 {
-    //const char* filePath = "../res/images/KirbySleepSpriteSheet.png";
-    const char* filePath = "../res/images/linkSprite.png";
+    const char* filePath = "../res/images/Sonic_Mania_Sprite_Sheet.png";
+    const char* filePath2 = "../res/images/SonicFondo.png";
 
     aux = new Sprite(getRenderer(), {1, 1, 1, 1}, {windowWidth / 2.0f, windowHeight / 2.0f, 0.0f}, {100, 100, 0},
                      filePath,GL_NEAREST);
+
+    aux2 = new Sprite(getRenderer(), {1, 1, 1, 1}, {windowWidth / 2.0f, windowHeight / 2.0f, 0.0f}, {(float)windowWidth, (float)windowHeight, 0},
+                     filePath2,GL_NEAREST);
+
+    obstacle = new Sprite(getRenderer(), {1, 1, 1, 1}, {windowWidth / 2.0f, windowHeight / 2.0f, 0.0f}, {100, 100, 0},
+                     filePath,GL_NEAREST);
+
+    
     obj1 = new Square(getRenderer(), {1, 1, 1, 1}, {windowWidth / 4.0f, windowHeight / 2.0f, 0.0f}, {100, 100, 0});
     obj2 = new Square(getRenderer(), {1, 1, 0, 1}, {windowWidth / 2.0f, windowHeight / 2.0f, 0.0f}, {100, 100, 0});
-    Animation animationPlayerUp = Animation(0, 832 / 8, 10, 1.2f, 960, 832, 960 / 10, 832 / 8);
-    Animation animationPlayerDown = Animation(0, (832 / 8) *3, 10, 1.2f, 960, 832, 960 / 10, 832 / 8);
-    Animation animationPlayerLeft = Animation(0, (832 / 8) *2, 10, 1.2f, 960, 832, 960 / 10, 832 / 8);
-    Animation animationPlayerRight = Animation(0, 0, 10, 1.2f, 960, 832, 960 / 10, 832 / 8);
-    Animation animationPlayerIdle = Animation(0, 728 , 3, 1.2f, 960, 832, 960 / 10, 93);
-    Animator.insert_or_assign("Up", animationPlayerUp);
-    Animator.insert_or_assign("Down", animationPlayerDown);
-    Animator.insert_or_assign("Left", animationPlayerLeft);
+    
+    Animation animationPlayerRight = Animation(268, (465 / 6 ) * 4, 5, 1.2f, 830, 465, 36, 44);
+    Animation animationObstacle = Animation(132, (465 / 6 ) * 7.2, 5, 1.0f, 830, 465, 49, 52);
+    
     Animator.insert_or_assign("Right", animationPlayerRight);
-    Animator.insert_or_assign("Idle", animationPlayerIdle);
+    AnimatorObstacle.insert_or_assign("ObstacleIdle", animationObstacle);
 }
 
 void Game::update()
@@ -45,22 +49,21 @@ void Game::update()
     {
         newPos.x -= 1.0f;
         aux->SetPosition(newPos);
-
-        aux->ChangeAnimation(Animator["Left"]);
+        aux->ChangeAnimation(Animator["Right"]);
         hasBeenPressed = true;
     }
      if (input->isKeyPressed(KeyKode::KEY_W))
     {
         newPos.y += 1.0f;
         aux->SetPosition(newPos);
-        aux->ChangeAnimation(Animator["Up"]);
+         aux->ChangeAnimation(Animator["Right"]);
         hasBeenPressed = true;
     }
      if (input->isKeyPressed(KeyKode::KEY_S))
     {
         newPos.y -= 1.0f;
         aux->SetPosition(newPos);
-        aux->ChangeAnimation(Animator["Down"]);
+         aux->ChangeAnimation(Animator["Right"]);
         hasBeenPressed = true;
     }
     if (input->isKeyPressed(KeyKode::KEY_D))
@@ -93,15 +96,22 @@ void Game::update()
         cout << "Collision" << endl;
     }
 
+    obstacle->ChangeAnimation(AnimatorObstacle["ObstacleIdle"]);
+
+
+    aux2->Draw();
     aux->UpdateAnimation();
     aux->Draw();
+    obstacle->Draw();
+    obstacle->UpdateAnimation();
     obj1->Draw();
-    obj2->Draw();
+    //obj2->Draw();
 }
 
 void Game::exit()
 {
     delete aux;
+    delete aux2;
     delete obj1;
     delete obj2;
 }

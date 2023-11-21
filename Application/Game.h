@@ -10,9 +10,12 @@ class Game final : public Korbo::Engine
 {
 private:
     Sprite* aux;
+    Sprite* aux2;
+    Sprite* obstacle;
     Entity2D* obj1;
     Entity2D* obj2;
     map<string, Animation> Animator;
+    map<string, Animation> AnimatorObstacle;
     int windowWidth = 800;
     int windowHeight = 400;
 public:
