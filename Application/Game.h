@@ -9,8 +9,8 @@
 class Game final : public Korbo::Engine
 {
 private:
-    Sprite* aux;
-    Sprite* aux2;
+    Sprite* Player;
+    Sprite* background;
     Sprite* obstacle;
     Entity2D* obj1;
     Entity2D* obj2;
